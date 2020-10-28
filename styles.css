@@ -1,0 +1,17 @@
+/* containers for page */
+#main {
+    display: flex;
+    width: auto;
+    height: 60vh;
+    justify-content: center;
+}
+
+#board {
+    display: grid;
+    width: 600px;
+    height: 600px;
+}
+
+#playerTwoForm {
+    display: none;
+}
