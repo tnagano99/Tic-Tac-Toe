@@ -6,6 +6,12 @@
     justify-content: center;
 }
 
+#title {
+    display: flex;
+    width: auto;
+    height: 100px;
+    justify-content: center;
+}
 #board {
     display: grid;
     width: 600px;
@@ -13,5 +19,9 @@
 }
 
 #playerTwoForm {
+    display: none;
+}
+
+#gamespace {
     display: none;
 }
