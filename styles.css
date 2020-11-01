@@ -1,27 +1,88 @@
 /* containers for page */
+/* container for gameplay and playerform */
 #main {
     display: flex;
     width: auto;
     height: 60vh;
     justify-content: center;
 }
-
+/* container for title */
 #title {
     display: flex;
     width: auto;
-    height: 100px;
+    height: 130px;
     justify-content: center;
 }
+/* style whole page */
+body {
+    background-color: rgb(255, 230, 230);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/* title */
+h1 {
+    font-size: 3em;
+    color: red;
+}
+/* player form */
+#playerForm {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+/* player form name text fields */
+.text-field {
+    font-size: 0.8em;
+}
+/* container for gameplay board and buttons */
 #board {
     display: grid;
     width: 600px;
     height: 600px;
+    background-color: white;
+    border: 2px solid black;
+    border-collapse: collapse;
 }
-
-#playerTwoForm {
-    display: none;
-}
-
+/* gameplay board */
 #gamespace {
     display: none;
+}
+/* board squares */
+.squares {
+    border: 2px solid black;
+    font-size: 10.5em;
+    text-align: center;
+    color: rgba(255, 0, 0, 0.678);
+}
+.squares:hover {
+    background-color: rgb(240, 240, 240);
+}
+/* container for gamebuttons */
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+/* all buttons */
+.allButtons {
+    font-size: 1em;
+    width: 100%;
+    color: white;
+    background-color: red;
+}
+.allButtons:hover {
+    font-weight: bold;
+    border: 2px solid black;
+}
+/* game buttons */
+.gameButtons {
+    margin: 15px;
+}
+/* Display Message for Winner */
+#winnerMessage {
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+p {
+    font-size: 2em;
+    font-weight: bold;
 }

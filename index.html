@@ -9,28 +9,26 @@
         <div id="title">
             <h1>Play Tic-Tac-Toe!</h1>
         </div>
+        
         <div id="main">
             <div id="playerForm">
                 <label for="playerOneName">Player One Name:</label>
                 <input type="text" id="playerOneName" class="text-field" placeholder="Name"><br><br>
-                <label>Select Marker:</label>
+                <label>Select Player One Marker:</label>
                 <input type="radio" id="playerOne-X" name="playerOneMarker" value="X" checked="checked">
                 <label for="playerOne-X">X</label>
                 <input type="radio" id="playerOne-O" name="playerOneMarker" value="O">
                 <label for="playerOne-O">O</label><br><br>
-                <button type="button" id="add-player-two">Add Player Two</button><br><br>
-                <div id="playerTwoForm">
-                    <label for="playerTwoName">Player Two Name:</label>
-                    <input type="text" id="playerTwoName" class="text-field" placeholder="Name"><br><br>
-                    <button type="button" id="two-player">Play</button>
-                </div>
+                <label for="playerTwoName">Player Two Name:</label>
+                <input type="text" id="playerTwoName" class="text-field" placeholder="Name"><br><br>
+                <button type="button" id="two-player" class="allButtons">Play</button>
             </div>
             <div id="gamespace">
                 <div id="board">
                 </div>
                 <div id="buttons">
-                    <button type="button" id="resetGame">Reset Game</button>
-                    <button type="button" id="playAgain">Play Again</button>
+                    <button type="button" id="resetGame" class="allButtons gameButtons">Reset Game</button>
+                    <button type="button" id="playAgain" class="allButtons gameButtons">Play Again</button>
                 </div>
                 <div id="winnerMessage">
                 </div>

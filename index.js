@@ -6,8 +6,10 @@ const Gameboard = (() => {
     let score = [0, 0, 0, 0, 0, 0, 0, 0];
     // adds marker to board
     const addMarker = (position, marker) => {
-        // only add marker if position null
-        if (!gameboard[position]) {
+        // only add marker if position null and no winner has been decided
+        if (checkWinner()) {
+            return false;
+        } else if (!gameboard[position]) {
             gameboard[position] = marker;
             let square = document.getElementById(`${position}-square`);
             square.textContent = marker;
@@ -16,6 +18,22 @@ const Gameboard = (() => {
             return false;
         }
     };
+    const clearBoard = () => {
+        // reset arrays for gameboard and score for new game
+        gameboard = [null, null, null, null, null, null, null, null, null];
+        score = [0, 0, 0, 0, 0, 0, 0, 0];
+        for (let i = 0; i < 9; i++) {
+            // reset game display to be blank
+            let square = document.getElementById(`${i}-square`);
+            square.textContent = "";
+        };
+        // remove winner display message if exists
+        let msgContainer = document.getElementById(`winnerMessage`);
+        let msg = document.getElementById('message');
+        if (msg) {
+            msgContainer.removeChild(msg);
+        };
+    }
     // check gameboard for winner from score array
     // if greater than |2| there is a win
     const checkWinner = () => {
@@ -64,7 +82,7 @@ const Gameboard = (() => {
             score[6] += counter;
         }
     }
-    return {addMarker, checkWinner, keepScore};
+    return {addMarker, checkWinner, keepScore, clearBoard};
 })();
 
 // player factory function to make both players
@@ -88,8 +106,19 @@ const GamePlay = (() => {
             secondPlayer = playerOne;
         }
     };
+    // reset players and counter for resetting game
+    const clearGame = () => {
+        firstPlayer = null;
+        secondPlayer = null;
+        totalMoves = 0;
+    };
+    // reset counter to play another game with same players
+    const resetMoveCounter = () => {
+        totalMoves = 0;
+    }
     // initialize global counter to keep track of number of moves made
     let totalMoves = 0;
+    // determines player moves and adds proper marker to gameboard
     const playerMove = (square) => {
         // determine which player's move it is
         let player = (totalMoves % 2 === 0) ? firstPlayer : secondPlayer;
@@ -101,24 +130,23 @@ const GamePlay = (() => {
             // keeps tally of how close player is to win
             Gameboard.keepScore(position, player.playerMarker);
             // checks for winner
-            if (totalMoves < 9) {
-                // display winner message if found
-                if (Gameboard.checkWinner()) {
-                    let parent = document.getElementById("winnerMessage");
-                    let message = document.createElement("p");
-                    message.textContent = `Congratulations ${player.playerName}! You Win!`;
-                    parent.appendChild(message);
-                };
-            } else {
+            if (Gameboard.checkWinner()) {
+                let parent = document.getElementById("winnerMessage");
+                let message = document.createElement("p");
+                message.setAttribute("id", "message");
+                message.textContent = `Congratulations ${player.playerName}! You Win!`;
+                parent.appendChild(message);
+            } else if (totalMoves > 8) {
                 // display tie game message
                 let parent = document.getElementById("winnerMessage");
                 let message = document.createElement("p");
+                message.setAttribute("id", "message");
                 message.textContent = `Tie Game! No one wins.`;
                 parent.appendChild(message);
             }
         }
     };
-    return {setPlayers, playerMove}
+    return {setPlayers, playerMove, clearGame, resetMoveCounter}
 })();
 
 // create gameboard display
@@ -145,13 +173,6 @@ createBoard();
 let playerOne;
 let playerTwo;
 
-// display form to add player 2
-let _displayPlayerTwoForm = document.getElementById("add-player-two");
-_displayPlayerTwoForm.addEventListener("click", () => {
-    let _playerTwoForm = document.getElementById("playerTwoForm");
-    _playerTwoForm.style.display = "block";
-});
-
 // to start a two player game
 let _startTwoPlayerGame = document.getElementById("two-player");
 _startTwoPlayerGame.addEventListener("click", () => {
@@ -177,5 +198,19 @@ _startTwoPlayerGame.addEventListener("click", () => {
 
 // to reset game and display form again
 let _resetGame = document.getElementById("resetGame");
+_resetGame.addEventListener("click", () => {
+    GamePlay.clearGame();
+    Gameboard.clearBoard();
+    // open form to enter players
+    let openForm = document.getElementById("playerForm");
+    openForm.style.display = "block";
+    // close gameboard
+    let closeBoard = document.getElementById("gamespace");
+    closeBoard.style.display = "none";
+})
 // to play another round with same players
 let _playAgain = document.getElementById("playAgain");
+_playAgain.addEventListener("click", () => {
+    GamePlay.resetMoveCounter();
+    Gameboard.clearBoard();
+})
